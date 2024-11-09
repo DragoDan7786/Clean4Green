@@ -1,0 +1,35 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-19312a42f5d-cbcb33f53dfb806": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "cleanForGreen.db",
+			"save-password": true,
+			"configuration": {
+				"database": "C:\\Users\\sulem\\OneDrive\\Documents\\DBeaver DBs\\cleanForGreen.db",
+				"url": "jdbc:sqlite:C:\\Users\\sulem\\OneDrive\\Documents\\DBeaver DBs\\cleanForGreen.db",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": true,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
+		}
+	}
+}
