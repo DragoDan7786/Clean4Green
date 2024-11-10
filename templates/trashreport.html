@@ -7,7 +7,11 @@
         <input type="number" id="numItems" name="numItems" required>
 
         <label for="itemType">Item Type:</label>
-        <input type="text" id="itemType" name="itemType" required>
+        <select id="itemType" name="itemType" required>
+            <option value="Small Items">Small Items</option>
+            <option value="Large Items">Large Items</option>
+            <option value="Electronics">Electronics</option>
+        </select>
 
         <label for="itemPicture">Upload a Picture:</label>
         <input type="file" id="itemPicture" name="itemPicture" accept="image/*" required>

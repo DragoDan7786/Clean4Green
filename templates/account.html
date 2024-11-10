@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Your Submission History</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Number of Items</th>
+                <th>Item Type</th>
+                <th>Submission Proof</th>  <!-- Column for image -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for submission in submissions %}
+                <tr>
+                    <td>{{ submission['submission_date'] }}</td>
+                    <td>{{ submission['numItems'] }}</td>
+                    <td>{{ submission['itemType'] }}</td>
+                    <td>
+                        <!-- Display image if the proof exists -->
+                        <img src="{{ url_for('static', filename=submission['submission_proof']) }}" alt="Submission Image" width="100">
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

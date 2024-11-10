@@ -18,7 +18,8 @@
                 <div class="dropdown">
                     <button class="dropdown-btn">Options</button>
                     <div class="dropdown-content">
-                        <a href="{{ url_for('logout') }}">Sign Out</a>
+                        <a href="{{ url_for('account') }}">Account</a>
+                        <a href="#" class="navbar-btn" id="logout-btn">Sign Out</a>
                     </div>
                 </div>
             {% else %}
@@ -31,7 +32,12 @@
     <nav>
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('submit_trash_report') }}">Report Trash</a>
-        <a href="{{ url_for('login') }}">Account</a>
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('account') }}">Account</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Log In</a>
+            <a href="{{ url_for('signup') }}">Sign Up</a>
+        {% endif %}
     </nav>
 
     <!-- Main Content Section -->
@@ -40,5 +46,42 @@
         <!-- Specific page content will go here -->
         {% endblock %}
     </main>
+
+    <!-- JavaScript for handling Sign Out and Dropdown functionality -->
+    <script>
+        // Handle the Sign Out button
+        document.getElementById('logout-btn')?.addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent default link behavior
+            fetch("{{ url_for('logout') }}", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})  // Send empty body for logout
+            })
+            .then(response => {
+                window.location.href = "{{ url_for('login') }}";  // Redirect to login after logging out
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // JavaScript to toggle the dropdown visibility when the button is clicked
+        document.querySelector('.dropdown-btn').addEventListener('click', function() {
+            let dropdownContent = document.querySelector('.dropdown-content');
+            dropdownContent.classList.toggle('show');
+        });
+
+        // Close the dropdown if clicked outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-btn')) {
+                let dropdowns = document.querySelectorAll('.dropdown-content');
+                dropdowns.forEach(function(dropdown) {
+                    if (dropdown.classList.contains('show')) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>
