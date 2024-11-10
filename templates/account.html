@@ -20,11 +20,10 @@
                     <td>{{ submission['itemType'] }}</td>
                     <td>
                         <!-- Display image if the proof exists -->
-                        <img src="{{ url_for('static', filename=submission['submission_proof']) }}" alt="Submission Image" width="100">
+                        <img src="{{ url_for('uploaded_file', filename=submission['submission_proof'].split('/')[-1]) }}" alt="Submission Image" width="100">
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}

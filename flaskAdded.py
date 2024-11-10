@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory
 import sqlite3
 import os
 from werkzeug.utils import secure_filename
@@ -87,7 +87,10 @@ def account():
 
     return render_template('account.html', submissions=submissions)
 
-
+# Route to serve uploaded files (images from the uploads directory)
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -123,7 +126,7 @@ def submit_trash_report():
         conn = get_db_connection()
         conn.execute('''INSERT INTO submissions (submission_date, submission_proof, numItems, itemType, userID)
                         VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?)''', 
-                     (picture_path, num_items, item_type, user_id))
+                     (filename, num_items, item_type, user_id))  # Save only filename to DB
         conn.commit()
         conn.close()
 
