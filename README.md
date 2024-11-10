@@ -1,0 +1,1 @@
+This is a project for the 2024 RPI Hackathon. This project aims to incentivize waste disposal and reward philanthropic endeavors.

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="generalstyle.css" type="text/css" />
+    <title>Report Trash - Clean for Green</title>
+</head>
+<body>
+    <header>
+        <h1>Clean for Green</h1>
+        <p>Make a difference by cleaning up your community!</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="trashreport.html">Report Trash</a>
+        <a href="#">Account</a>
+    </nav>
+
+    <main>
+        <h2>Report Trash Collection</h2>
+        <p></p>
+        <form action="/submit-trash-report" method="POST" enctype="multipart/form-data">
+            <!-- Number of Items -->
+            <label for="numItems">Number of Items Collected:</label><br>
+            <input type="number" id="numItems" name="numItems" min="1" required><br><br>
+
+            <label for="itemType">Type of Items:</label><br>
+            <select id="itemType" name="itemType" required>
+                <option value="">Select an item type</option>
+                <option value="small">Small Item</option>
+                <option value="large">Large Item</option>
+                <option value="electronic">Electronic</option>
+            </select><br><br>
+
+            <!-- Picture Upload -->
+            <label for="itemPicture">Upload Picture:</label><br>
+            <input type="file" id="itemPicture" name="itemPicture" accept="image/*" required><br><br>
+
+            <input type="submit" value="Submit Report">
+        </form>
+    </main>
+</body>
+</html>
