@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request
 import sqlite3
 
 
 # Connect to an SQLite database
 connection = sqlite3.connect("CleanForGreen.db")  # Replace with your database name
 cursor = connection.cursor()
+
+
 
 #create User Table
 cursor.execute('''CREATE TABLE IF NOT EXISTS user (
@@ -22,6 +23,8 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS submissions (
      SubID INTEGER PRIMARY KEY AUTOINCREMENT
     ,submission_date DATETIME NOT NULL
     ,submission_proof BLOB NOT NULL
+    ,numItems INTEGER NOT NULL
+    ,itemType VARCHAR(50) NOT NULL
     ,userID INTEGER NOT NULL
     ,FOREIGN KEY (userID) REFERENCES user(userID)
      );''')
@@ -29,9 +32,6 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS submissions (
 cursor.execute('''INSERT INTO user (userName, pWord, firstName, lastName, email, isSuspended)
     VALUES (?, ?, ?, ?, ?, ?)
 ''', ('johndoe', 'password123', 'John', 'Doe', 'john.doe@example.com', 0))
-
-
-
 
 
 connection.commit()

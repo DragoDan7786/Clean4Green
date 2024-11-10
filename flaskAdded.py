@@ -102,8 +102,8 @@ def submit_trash_report():
         # Insert trash report into the submissions table
         user_id = 1  # This should be the logged-in user's ID, which you can get from the session
         conn = get_db_connection()
-        conn.execute('''INSERT INTO submissions (submission_date, submission_proof, userID)
-                         VALUES (CURRENT_TIMESTAMP, ?, ?)''', (picture_path, user_id))
+        conn.execute('''INSERT INTO submissions (submission_date, submission_proof, numItems, itemType userID)
+                         VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?)''', (picture_path, num_items, item_type, user_id))
         conn.commit()
         conn.close()
 
