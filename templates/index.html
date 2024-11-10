@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Welcome to Clean for Green!</h1>
+    <p>Join us in making the world a cleaner, greener place. Report your trash collection efforts and see the impact we make together.</p>
+
+    <div class="button-group">
+        <a href="{{ url_for('login') }}" class="button">Log In</a>
+        <a href="{{ url_for('signup') }}" class="button">Sign Up</a>
+    </div>
+{% endblock %}

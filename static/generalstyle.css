@@ -23,11 +23,12 @@ header {
     color: white;
     text-align: left;
     box-shadow: 0 10px 8px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Align header content */
+    align-items: center; /* Vertically center content */
+    position: relative; 
     z-index: 1000;
 }
-
 header h1 {
     font-size: 1.8em;
     margin-bottom: 3px;
@@ -101,18 +102,18 @@ p {
     justify-content: center;
 }
 
-.button {
+a.button { 
     padding: 12px 25px;
     background-color: #4CAF50;
     color: white;
-    border: none;
+    text-decoration: none; 
     border-radius: 6px;
     cursor: pointer;
     font-size: 1em;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.button:hover {
+a.button:hover {
     background-color: #45a049;
     transform: translateY(-3px);
 }
@@ -195,4 +196,43 @@ form input[type="submit"]:hover {
     form {
         padding: 15px;
     }
+
+/* Adjust the login indicator position */
+.login-indicator {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    text-align: right;
+}
+
+.username {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.login-link {
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.signout-btn {
+    background-color: transparent; /* Make button background transparent */
+    color: #4CAF50; /* Green color for text */
+    padding: 0; /* Remove padding */
+    border: none; /* No border */
+    cursor: pointer;
+    margin-top: 10px; /* Add spacing */
+    font-weight: bold; /* Bold font */
+    text-align: left; /* Align text left */
+}
+
+.signout-btn:hover {
+    color: #45a049; /* Slightly darker green on hover */
+}
+
+.login-indicator a {
+    display: block;
+    margin-top: 10px;
+}
 }
