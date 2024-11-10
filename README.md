@@ -1,1 +1,3 @@
-This is a project for the 2024 RPI Hackathon. This project aims to incentivize waste disposal and reward philanthropic endeavors.
+CleanForGreen is a community-driven web platform where users are rewarded for removing waste from public spaces and uploading proof of their efforts. Through a simple process—collecting waste, uploading a photo, and receiving review and approval—users earn points based on the amount and frequency of their submissions. Each month, CleanForGreen distributes a portion of its advertising revenue among users based on their points, providing a financial incentive for environmental action. With a user dashboard to track personal and community progress, CleanForGreen aims to promote environmental responsibility while uniting individuals in the shared mission of cleaner, healthier communities.
+
+Created for 2024 MLH Hackathon at RPI
