@@ -4,32 +4,29 @@ import os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # For session and flash messages
+app.secret_key = 'your_secret_key'
 
-# Path for saving uploaded files (pictures for trash reports)
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
-# Connect to SQLite database
+
 def get_db_connection():
     conn = sqlite3.connect('CleanForGreen.db', check_same_thread=False)
     conn.row_factory = sqlite3.Row
     return conn
 
-# Ensure uploads directory exists
+
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
-# Route for home page (index.html)
 @app.route('/')
 @app.route('/index')
 def home():
-    user_logged_in = 'username' in session  # Check if the user is logged in
+    user_logged_in = 'username' in session 
     username = session.get('username') if user_logged_in else None
     return render_template('index.html', user_logged_in=user_logged_in, username=username)
 
-# Route for signup page
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -39,7 +36,7 @@ def signup():
         email = request.form['email']
         password = request.form['password']
 
-        # Insert user data into the user table
+
         conn = get_db_connection()
         conn.execute('''INSERT INTO user (userName, pWord, firstName, lastName, email, isSuspended)
                          VALUES (?, ?, ?, ?, ?, ?)''', (username, password, first_name, last_name, email, 0))
@@ -62,9 +59,9 @@ def login():
         conn.close()
 
         if user:
-            session['user_id'] = user['userID']  # Ensure user ID is set here
+            session['user_id'] = user['userID']
             session['username'] = user['userName']
-            session['user_logged_in'] = True  # Optional: set a general logged-in flag
+            session['user_logged_in'] = True 
 
             return redirect(url_for('home'))
         else:
@@ -80,21 +77,19 @@ def account():
 
     user_id = session['user_id']
 
-    # Retrieve user submissions for history
     conn = get_db_connection()
     submissions = conn.execute('SELECT * FROM submissions WHERE userID = ?', (user_id,)).fetchall()
     conn.close()
 
     return render_template('account.html', submissions=submissions)
 
-# Route to serve uploaded files (images from the uploads directory)
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/logout', methods=['POST'])
 def logout():
-    session.clear()  # Clears all session data
+    session.clear() 
     flash('You have been logged out successfully.')
     return redirect(url_for('login'))
 
@@ -105,12 +100,10 @@ def submit_trash_report():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        # Retrieve form data
         num_items = request.form['numItems']
         item_type = request.form['itemType']
         item_picture = request.files['itemPicture']
 
-        # Save picture file
         if item_picture and allowed_file(item_picture.filename):
             filename = secure_filename(item_picture.filename)
             picture_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -119,14 +112,12 @@ def submit_trash_report():
             flash('Invalid file format. Only images are allowed.')
             return redirect(request.url)
 
-        # Get user ID from session
-        user_id = session['user_id']  # Now it's safe to use user_id
+        user_id = session['user_id']  
 
-        # Insert trash report into the submissions table
         conn = get_db_connection()
         conn.execute('''INSERT INTO submissions (submission_date, submission_proof, numItems, itemType, userID)
                         VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?)''', 
-                     (filename, num_items, item_type, user_id))  # Save only filename to DB
+                     (filename, num_items, item_type, user_id))  
         conn.commit()
         conn.close()
 
@@ -135,8 +126,6 @@ def submit_trash_report():
 
     return render_template('trashreport.html')
 
-
-# Helper function to check if file is an allowed image type
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 

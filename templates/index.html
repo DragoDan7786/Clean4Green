@@ -5,13 +5,11 @@
     <p>Join us in making the world a cleaner, greener place. Report your trash collection efforts and see the impact we make together.</p>
 
     {% if user_logged_in %}
-        <!-- Show "Report Trash" and "Account" buttons when logged in -->
         <div class="button-group">
             <a href="{{ url_for('submit_trash_report') }}" class="button">Report Trash</a>
             <a href="{{ url_for('account') }}" class="button">Account</a>
         </div>
     {% else %}
-        <!-- Show "Log In" and "Sign Up" buttons when not logged in -->
         <div class="button-group">
             <a href="{{ url_for('login') }}" class="button">Log In</a>
             <a href="{{ url_for('signup') }}" class="button">Sign Up</a>

@@ -9,9 +9,7 @@
 <body>
     <header>
         <h1>Clean for Green</h1>
-        <p>Make a difference by cleaning up your community!</p>
 
-        <!-- Login Indicator -->
         <div class="login-indicator">
             {% if session.get('user_logged_in') %}
                 <span class="username">{{ session.get('username') }}</span>
@@ -28,7 +26,6 @@
         </div>
     </header>
 
-    <!-- Navigation Bar -->
     <nav>
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('submit_trash_report') }}">Report Trash</a>
@@ -40,38 +37,32 @@
         {% endif %}
     </nav>
 
-    <!-- Main Content Section -->
     <main>
         {% block content %}
-        <!-- Specific page content will go here -->
         {% endblock %}
     </main>
 
-    <!-- JavaScript for handling Sign Out and Dropdown functionality -->
     <script>
-        // Handle the Sign Out button
         document.getElementById('logout-btn')?.addEventListener('click', function(event) {
-            event.preventDefault();  // Prevent default link behavior
+            event.preventDefault(); 
             fetch("{{ url_for('logout') }}", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({})  // Send empty body for logout
+                body: JSON.stringify({})
             })
             .then(response => {
-                window.location.href = "{{ url_for('login') }}";  // Redirect to login after logging out
+                window.location.href = "{{ url_for('login') }}";
             })
             .catch(error => console.error('Error:', error));
         });
 
-        // JavaScript to toggle the dropdown visibility when the button is clicked
         document.querySelector('.dropdown-btn').addEventListener('click', function() {
             let dropdownContent = document.querySelector('.dropdown-content');
             dropdownContent.classList.toggle('show');
         });
 
-        // Close the dropdown if clicked outside of it
         window.onclick = function(event) {
             if (!event.target.matches('.dropdown-btn')) {
                 let dropdowns = document.querySelectorAll('.dropdown-content');

@@ -9,7 +9,7 @@
                 <th>Date</th>
                 <th>Number of Items</th>
                 <th>Item Type</th>
-                <th>Submission Proof</th>  <!-- Column for image -->
+                <th>Submission Proof</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +19,6 @@
                     <td>{{ submission['numItems'] }}</td>
                     <td>{{ submission['itemType'] }}</td>
                     <td>
-                        <!-- Display image if the proof exists -->
                         <img src="{{ url_for('uploaded_file', filename=submission['submission_proof'].split('/')[-1]) }}" alt="Submission Image" width="100">
                     </td>
                 </tr>
