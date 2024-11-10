@@ -1,14 +1,35 @@
+from flask import Flask, render_template, request
 import sqlite3
 
-# Connect to an SQLite database
-connection = sqlite3.connect("CleanForGreen.db")  # Replace with your database name
-cursor = connection.cursor()
+app = Flask(__name__)
 
-cursor.execute('SELECT * FROM user')
+@app.route('/')
+def index():
+    conn = sqlite3.connect('CleanForGreen.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM user')
+    users = cursor.fetchall()
+    conn.close()
+    return render_template('index.html', users=users)
 
-userTest = cursor.fetchall()
-print(userTest)
+@app.route('/add', methods=['POST'])
+def add_user():
+    userName = request.form['userName']
+    pWord = request.form['pWord']
+    firstName = request.form['firstName']
+    lastName = request.form['lastName']
+    email = request.form['email']
 
+    conn = sqlite3.connect('CleanForGreen.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO user (userName, pWord, firstName, lastName, email)
+        VALUES (?, ?, ?, ?, ?)
+    ''', (userName, pWord, firstName, lastName, email))
+    conn.commit()
+    conn.close()
 
-connection.commit()
-connection.close()
+    return 'User added successfully!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
